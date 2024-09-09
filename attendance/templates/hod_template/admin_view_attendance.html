@@ -1,0 +1,61 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+View Attendance
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- general form elements -->
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">View Attendance</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+               
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>Gender</th>
+                          <th>Date of Birth</th>
+                          <th>Status</th>
+                          <th>Date Mark</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for report in attendance_reports %}
+                        <tr>
+                          <td>{{ report.attendance.student_id.admin.id }}</td>
+                          <td>{{ report.attendance.student_id.admin.first_name }}</td>
+                          <td>{{ report.attendance.student_id.admin.last_name }}</td>
+                          <td>{{ report.attendance.student_id.admin.email }}</td>
+                          <td>{{ report.attendance.student_id.gender }}</td>
+                          <td>{{ report.attendance.student_id.date_of_birth }}</td>
+                          <td>{{ report.status }}</td>
+                          <td>{% now "Y-m-d" %}</td>
+                          <!-- <td><a href="edit_staff/{{ teacher.admin.id }}" class="btn btn-success">Edit</a></td>
+                          <td><a href="delete_teacher/{{x.id}}" class="btn btn-danger">Delete</a></td> -->
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+              <!-- /.card -->
+          </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
