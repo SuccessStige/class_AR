@@ -59,6 +59,5 @@ urlpatterns = [
     path('take_attendance', views.take_attendance, name="take_attendance"),
     path('staff_view_attendance', views.staff_view_attendance, name="staff_view_attendance"),
 
-    path('create_admin_user',views.create_admin_user,name="create_admin_user"),
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
