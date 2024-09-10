@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout, User
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
@@ -11,7 +11,7 @@ from django.db.models import Count, Q
 from datetime import date
 
 from attendance.form import AddStudentForm,EditStudentForm
-from attendance.models import CustomUser, Teacher, Student,Attendance,AttendanceReport
+from attendance.models import CustomUser, Teacher, Student,Attendance,AttendanceReport, Admin
 from attendance.EmailBackEnd import EmailBackEnd
 
 # Create your views here.
@@ -415,8 +415,8 @@ def staff_home(request):
     })
 
 def create_admin_user(request):
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')
+    if not Admin.objects.filter(username='admin').exists():
+        Admin.objects.create_superuser('admin', 'admin@gmail.com', 'admin')
         return HttpResponse("Superuser created successfully!")
     else:
         return HttpResponse("Superuser already exists.")
