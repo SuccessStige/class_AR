@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, User
 from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
@@ -413,3 +413,10 @@ def staff_home(request):
         "total_present": total_present,
         "total_absent": total_absent
     })
+
+def create_admin_user(request):
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')
+        return HttpResponse("Superuser created successfully!")
+    else:
+        return HttpResponse("Superuser already exists.")
