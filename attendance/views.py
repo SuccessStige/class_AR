@@ -11,7 +11,7 @@ from django.db.models import Count, Q
 from datetime import date
 
 from attendance.form import AddStudentForm,EditStudentForm
-from attendance.models import CustomUser, Teacher, Student,Attendance,AttendanceReport, Admin
+from attendance.models import CustomUser, Teacher, Student,Attendance,AttendanceReport
 from attendance.EmailBackEnd import EmailBackEnd
 
 # Create your views here.
@@ -413,10 +413,3 @@ def staff_home(request):
         "total_present": total_present,
         "total_absent": total_absent
     })
-
-def create_admin_user(request):
-    if not Admin.objects.filter(username='admin').exists():
-        Admin.objects.create_superuser('admin', 'admin@gmail.com', 'admin')
-        return HttpResponse("Superuser created successfully!")
-    else:
-        return HttpResponse("Superuser already exists.")
