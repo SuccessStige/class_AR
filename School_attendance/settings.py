@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-15o6&c5^9!qpyyao5jt$)k)b3_&f$je(7(p^3@w2ek+l&w#t8='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True')=="True"
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'class-attendance-register.onrender.com']
 
@@ -82,18 +83,23 @@ WSGI_APPLICATION = 'School_attendance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'attendance_register',
-        # 'USER': 'attendance_register',
-        # 'PASSWORD': 'attendance_password',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306',
-    }
+if not DEBUG:
+    DATABASES = {
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+            # 'ENGINE': 'django.db.backends.mysql',
+            # 'NAME': 'attendance_register',
+            # 'USER': 'attendance_register',
+            # 'PASSWORD': 'attendance_password',
+            # 'HOST': 'localhost',
+            # 'PORT': '3306',
+        }
+    }
 
 
 # Password validation
